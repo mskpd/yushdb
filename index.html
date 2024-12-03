@@ -3707,7 +3707,7 @@
         console.log("Page Loaded");
 
         // Enable or disable the button based on username and password inputs
-        $("#login-form_username, #uPassword").keyup(function() {
+        $("#login-form_username, #uPassword").on("input", function() {
             // Log the field values to see if they are being updated correctly
             console.log("Username:", $("#login-form_username").val());
             console.log("Password:", $("#uPassword").val());
